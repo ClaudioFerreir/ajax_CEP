@@ -21,7 +21,7 @@ $(document).ready(function() {
     $(button).find('i').addClass('d-none');
     $(button).find('span').removeClass('d-none');
 
-    $.ajax(endpoint).done(function(data) {
+    /* $.ajax(endpoint).done(function(data) {
       $.ajax(endpoint).done(function(data) {
         const logradouro = data.logradouro;
         const bairro = data.bairro;
@@ -36,6 +36,24 @@ $(document).ready(function() {
         }, 1000)
 
       })
+    }) */
+    
+    fetch(endpoint)
+    .then(function(data) {
+      return data.json();
+    })
+    .then(function(json) {
+      const logradouro = json.logradouro;
+      const bairro = json.bairro;
+      const cidade = json.localidade;
+      const estado = json.uf;
+      const endereco = `${logradouro}, ${bairro} - ${cidade} - ${estado}`;
+      $('#endereco').val(endereco);
+
+        setTimeout(function() {
+          $(button).find('i').removeClass('d-none');
+          $(button).find('span').addClass('d-none');
+        }, 1000)
     })
   })
 })
